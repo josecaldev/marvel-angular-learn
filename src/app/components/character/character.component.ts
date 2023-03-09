@@ -6,5 +6,5 @@ import { ICharacter } from '../characters/interfaces';
   styleUrls: ['./character.component.scss'],
 })
 export class CharacterComponent {
-  @Input() char: ICharacter;
+  @Input() chara: ICharacter;
 }

@@ -1,10 +1,10 @@
 <app-searchBar></app-searchBar>
 <div class="characters">
-  <h1>Welcome to the {{ title }}</h1>
+  <h1>{{ title }}</h1>
   <div class="grid">
     <app-character
       *ngFor="let char of characters"
-      [char]="char"
+      [chara]="char"
     ></app-character>
   </div>
 </div>

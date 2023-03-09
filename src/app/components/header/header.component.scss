@@ -9,7 +9,7 @@
   top: 0;
   width: 100%;
   // background-color: map-get($colorPalette, main);
-  background-color: #fbfbfb;
+  background-color: map-get($colorPalette, secondary);
 }
 
 .header__elements {
