@@ -1,0 +1,15 @@
+<div class="header">
+  <div class="header__elements">
+    <a routerLink="/" class="header__brand">
+      <img src="../../../assets/marvel-logo.png" alt="Marvel" />
+    </a>
+
+    <ul class="header__quick-access">
+      <li *ngFor="let item of items">
+        <a [routerLink]="item.link" routerLinkActive="link--active">
+          {{ item.text | uppercase }}
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>

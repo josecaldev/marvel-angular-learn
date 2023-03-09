@@ -1,0 +1,10 @@
+@import "../../../_variables.scss";
+
+.character {
+  background-color: map-get($colorPalette, secondary);
+}
+
+.charImage {
+  width: 100%;
+  // height: 60%;
+}

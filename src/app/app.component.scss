@@ -1,0 +1,9 @@
+@import "../_variables.scss";
+
+.router-outlet{
+    margin-top: 6rem;
+    padding: 2rem 4rem;
+    min-height: calc(100vh - (2rem + 4rem) - 5rem);
+    height: 1400px;
+    background-color: map-get($colorPalette, primary);
+}

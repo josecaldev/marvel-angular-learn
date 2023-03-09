@@ -1,0 +1,14 @@
+@import "../../../_variables.scss";
+
+.footer{
+    position: relative;
+    width: 100%;
+    height: 5rem;
+    background-color: map-get($colorPalette, detail);
+    color: map-get($colorPalette, main);
+    text-align: center;
+}
+
+h3{
+    margin: 0;
+}
