@@ -1,14 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-
-interface ICharacter {
-  id: String;
-  name: String;
-  description: String;
-  resourceURI: String;
-  thumbnail: {};
-  comics: {};
-}
+import { ICharacter } from './interfaces';
 
 @Component({
   selector: 'app-characters',
@@ -52,7 +44,7 @@ export class CharactersComponent implements OnInit {
         } = char;
 
         const { extension, path } = thumbnail;
-        const fullThumbnail = `${path}${extension}`;
+        const fullThumbnail = `${path}.${extension}`;
 
         const newCharacter: ICharacter = {
           id: id,
@@ -62,14 +54,20 @@ export class CharactersComponent implements OnInit {
           thumbnail: fullThumbnail,
           comics: comics,
         };
-
         this.characters.push(newCharacter);
       }
+      console.log(this.characters);
     });
 
-    renderCharacters();
+    // renderCharacters(this.characters);
   }
 }
-function renderCharacters() {
-  throw new Error('Function not implemented.');
-}
+
+const renderCharacters = (characters: ICharacter[]) => {
+  //ES USUAL usar ARROW functions en lugar de declarar como "FUNCTION"??
+  const charsGrid = document.getElementById('grid');
+  characters.forEach((character) => {
+    const charComp = document.createElement('app-character');
+    // charComp.setAttribute('id', character['id']);
+  });
+};
