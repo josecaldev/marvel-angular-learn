@@ -89,20 +89,4 @@ export class CharactersComponent implements OnInit, OnDestroy {
   getOffset() {
     return this.page * this.limit;
   }
-
-  // getAllCharacters() {
-  //   let momentary: ICharacter[] = [];
-  //   for (let i = 0; i <= 22; i++) {
-  //     //22 max
-  //     this.charactersService
-  //       .requestCharacters(i * this.offsetJump)
-  //       .subscribe((results: ICharacter[]) => {
-  //         for (let result of results) {
-  //           momentary.push(result);
-  //         }
-  //       });
-  //   }
-  //   this.allCharacters = momentary;
-  //   console.log(this.allCharacters);
-  // }
 }

@@ -30,16 +30,8 @@ export class CharactersService {
     return this.http.get(requestUrl).pipe(
       map((response: any) => {
         console.log(response);
-        return response.data; //.results
+        return response.data;
       })
-      // map(this.mapCharacter)
     );
   }
-
-  // mapCharacter = (results: any) => {
-  //   return results.map((char: any) => ({
-  //     ...char,
-  //     thumbnail: `${char.thumbnail.path}.${char.thumbnail.extension}`,
-  //   }));
-  // };
 }
