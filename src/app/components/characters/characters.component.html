@@ -1,10 +1,12 @@
-<app-searchBar></app-searchBar>
-<div class="characters">
-  <h1>{{ title }}</h1>
-  <div class="grid">
-    <app-character
-      *ngFor="let char of characters"
-      [chara]="char"
-    ></app-character>
-  </div>
+<app-searchBar (queryChanged)="recieveQuery($event)"></app-searchBar>
+<ng-container [ngTemplateOutlet]="paggination"></ng-container>
+<div class="grid">
+  <app-character *ngFor="let char of characters" [chara]="char"></app-character>
 </div>
+<ng-container [ngTemplateOutlet]="paggination"></ng-container>
+<ng-template #paggination>
+  <div class="paggingButtons">
+    <button (click)="pageResult('prev')">&lt; Previous</button>
+    <button (click)="pageResult('next')">Next &gt;</button>
+  </div>
+</ng-template>

@@ -1,15 +1,27 @@
 @import "../../../_variables.scss";
 
-.characters {
-  padding-bottom: 4rem;
-}
-
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 2rem;
-  // @media (max-width: 80rem) {
-  //   background-color: red;
-  //   grid-template-columns: repeat(2, 1fr);
-  // }
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+.paggingButtons {
+  display: flex;
+  justify-content: center;
+}
+
+button {
+  margin: 0.6rem 1rem;
+  width: 8rem;
+  border: none;
+  padding: 1rem;
+  background-color: map-get($colorPalette, detailvar);
+  color: white;
+  border-radius: 10px;
+  font-weight: 600;
+  opacity: 0.6;
+  &:hover {
+    opacity: 1;
+  }
 }

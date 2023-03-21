@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ICharacter } from './interfaces';
 import { CharactersService } from 'src/app/services/characters.service';
 import { map } from 'rxjs';
@@ -9,31 +8,76 @@ import { map } from 'rxjs';
   templateUrl: './characters.component.html',
   styleUrls: ['./characters.component.scss'],
 })
-export class CharactersComponent implements OnInit {
-  title = 'Characters';
+export class CharactersComponent implements OnInit, OnDestroy {
   characters: ICharacter[] = [];
 
-  constructor(private chractersService: CharactersService) {}
+  offset: number;
+  count: number;
+  dataSize: number;
+
+  limit = 100;
+  page = 0;
+
+  searchQuery = '';
+
+  constructor(private charactersService: CharactersService) {}
 
   ngOnInit(): void {
-    this.chractersService
-      .getCharacters()
+    this.pageResult('start');
+  }
+
+  ngOnDestroy(): void {}
+
+  doCharactersRequest(offset, limit) {
+    this.charactersService
+      .requestCharacters(offset, limit, this.searchQuery)
       .pipe(
-        map((response: any) => response.data.results),
-        map(this.mapCharacter)
+        map((data: any) => {
+          this.count = data.count;
+          this.offset = data.offset;
+          this.dataSize = data.total;
+
+          return this.mapCharacter(data.results);
+        })
       )
       .subscribe((characters: ICharacter[]) => {
         this.characters = characters;
       });
   }
 
-  renderCharacters = (characters: ICharacter[]) => {
-    const charsGrid = document.getElementById('grid');
-    characters.forEach((character) => {
-      const charComp = document.createElement('app-character');
-      // charComp.setAttribute('id', character['id']);
-    });
-  };
+  pageResult(direction = 'start') {
+    switch (direction) {
+      case 'start':
+        this.doCharactersRequest(0, this.limit);
+        break;
+
+      case 'prev':
+        if (this.getOffset() !== 0) {
+          this.page -= 1;
+          this.doCharactersRequest(this.getOffset(), this.limit);
+        } else {
+          //change button style to evidence disabled
+        }
+        break;
+
+      case 'next':
+        if (this.getOffset() + this.limit < this.dataSize) {
+          this.page += 1;
+          this.doCharactersRequest(this.getOffset(), this.limit);
+        } else {
+          //change button style to evidence disabled
+        }
+        break;
+    }
+  }
+
+  recieveQuery(query: string) {
+    this.searchQuery = query;
+    console.log('Recieved: ' + query);
+    if (query) {
+      this.pageResult('start');
+    }
+  }
 
   mapCharacter = (results: any) => {
     return results.map((char: any) => ({
@@ -41,4 +85,24 @@ export class CharactersComponent implements OnInit {
       thumbnail: `${char.thumbnail.path}.${char.thumbnail.extension}`,
     }));
   };
+
+  getOffset() {
+    return this.page * this.limit;
+  }
+
+  // getAllCharacters() {
+  //   let momentary: ICharacter[] = [];
+  //   for (let i = 0; i <= 22; i++) {
+  //     //22 max
+  //     this.charactersService
+  //       .requestCharacters(i * this.offsetJump)
+  //       .subscribe((results: ICharacter[]) => {
+  //         for (let result of results) {
+  //           momentary.push(result);
+  //         }
+  //       });
+  //   }
+  //   this.allCharacters = momentary;
+  //   console.log(this.allCharacters);
+  // }
 }

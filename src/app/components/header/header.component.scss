@@ -20,10 +20,10 @@
 
   .header__brand {
     padding: 0;
-  }
-
-  img {
-    height: 100%;
+    display: contents;
+    img {
+      height: 100%;
+    }
   }
 
   ul {
