@@ -1,3 +1,8 @@
 <div class="searchBar">
-    <input type="text" placeholder="Search a Character">
+  <input
+    type="text"
+    placeholder="Search a Character"
+    #txtQuery
+    (keyup)="onSearchFieldChanged(txtQuery.value)"
+  />
 </div>

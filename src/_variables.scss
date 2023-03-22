@@ -1,5 +1,23 @@
-$colors1: (primary: #F6F4F3, secondary:#FBFBFB, detail:#271F30, detailvar:#6F73D2, brand:#EE171F);
-$colors2: (primary: #F6F4F3, secondary:#FBFBFB, detail:#E4FF1A, detailvar:#FFB800, brand:#EE171F);
-$colors3: (primary: #F6F4F3, secondary:#FBFBFB, detail:#070707, detailvar:#3454D1, brand:#EE171F);
+$colors1: (
+  primary: #f9f9f9,
+  secondary: #f0f0f0,
+  detail: #271f30,
+  detailvar: #6f73d2,
+  brand: #ee171f,
+);
+$colors2: (
+  primary: #fbfbfb,
+  secondary: #f3f1f0,
+  detail: #e4ff1a,
+  detailvar: #ffb800,
+  brand: #ee171f,
+);
+$colors3: (
+  primary: #fbfbfb,
+  secondary: #f3f1f0,
+  detail: #070707,
+  detailvar: #3454d1,
+  brand: #ee171f,
+);
 
 $colorPalette: $colors1;

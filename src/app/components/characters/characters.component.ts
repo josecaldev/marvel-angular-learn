@@ -1,75 +1,89 @@
-import { Component, OnInit } from '@angular/core';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
-
-interface ICharacter {
-  id: String;
-  name: String;
-  description: String;
-  resourceURI: String;
-  thumbnail: {};
-  comics: {};
-}
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { ICharacter } from './interfaces';
+import { CharactersService } from 'src/app/services/characters.service';
+import { map } from 'rxjs';
 
 @Component({
   selector: 'app-characters',
   templateUrl: './characters.component.html',
   styleUrls: ['./characters.component.scss'],
 })
-export class CharactersComponent implements OnInit {
-  title = 'Characters';
+export class CharactersComponent implements OnInit, OnDestroy {
   characters: ICharacter[] = [];
-  rawData: any;
+
+  offset: number;
+  count: number;
+  dataSize: number;
+
   limit = 100;
-  offset = 0;
+  page = 0;
 
-  url: String = 'https://gateway.marvel.com:443/v1/public/characters';
-  apikey: String = 'apikey=85929680fcce1350eb06b0567904d5e0';
-  timestamp: String = 'ts=1678284996122';
-  hash: String = 'hash=53ab99406f9104a94e63a85ef2c0e8e8';
+  searchQuery = '';
 
-  constructor(private http: HttpClient) {}
+  constructor(private charactersService: CharactersService) {}
 
   ngOnInit(): void {
-    let resp = this.http.get(
-      `${this.url}?${this.timestamp}&${this.apikey}&${this.hash}&limit=${this.limit}&offset=${this.offset}`
-    );
-    resp.subscribe((response) => {
-      this.rawData = response;
-
-      const { data, ...otherProps1 } = this.rawData;
-      const { results, ...otherProps2 } = data;
-
-      for (let result in results) {
-        const char = results[result];
-        const {
-          id,
-          name,
-          description,
-          resourceURI,
-          thumbnail,
-          comics,
-          ...otherCharProps
-        } = char;
-
-        const { extension, path } = thumbnail;
-        const fullThumbnail = `${path}${extension}`;
-
-        const newCharacter: ICharacter = {
-          id: id,
-          name: name,
-          description: description,
-          resourceURI: resourceURI,
-          thumbnail: fullThumbnail,
-          comics: comics,
-        };
-
-        this.characters.push(newCharacter);
-      }
-    });
-
-    renderCharacters();
+    this.pageResult('start');
   }
-}
-function renderCharacters() {
-  throw new Error('Function not implemented.');
+
+  ngOnDestroy(): void {}
+
+  doCharactersRequest(offset, limit) {
+    this.charactersService
+      .requestCharacters(offset, limit, this.searchQuery)
+      .pipe(
+        map((data: any) => {
+          this.count = data.count;
+          this.offset = data.offset;
+          this.dataSize = data.total;
+
+          return this.mapCharacter(data.results);
+        })
+      )
+      .subscribe((characters: ICharacter[]) => {
+        this.characters = characters;
+      });
+  }
+
+  pageResult(direction: string) {
+    switch (direction) {
+      case 'start':
+        this.doCharactersRequest(0, this.limit);
+        break;
+
+      case 'prev':
+        if (this.getOffset() !== 0) {
+          this.page -= 1;
+          this.doCharactersRequest(this.getOffset(), this.limit);
+        } else {
+          //change button style to evidence disabled
+        }
+        break;
+
+      case 'next':
+        if (this.getOffset() + this.limit < this.dataSize) {
+          this.page += 1;
+          this.doCharactersRequest(this.getOffset(), this.limit);
+        } else {
+          //change button style to evidence disabled
+        }
+        break;
+    }
+  }
+
+  recieveQuery(query: string) {
+    this.searchQuery = query;
+    this.pageResult('start');
+  }
+
+  mapCharacter = (results: any) => {
+    return results.map((char: any) => ({
+      ...char,
+      thumbnail: `${char.thumbnail.path}.${char.thumbnail.extension}`,
+    }));
+  };
+
+  getOffset() {
+    return this.page * this.limit;
+  }
 }

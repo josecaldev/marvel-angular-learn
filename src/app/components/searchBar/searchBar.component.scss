@@ -1,19 +1,21 @@
-.searchBar{
-    align-content: center;
-    input{
-        display: inline;
-        margin: 0 3rem;
-        width: calc(100% - 6rem);
-        height: 3rem;
-        padding: 1rem;
+@import "../../../_variables.scss";
 
-        border-radius: 25px;
-        border-width: 0;
-        outline: none;
+.searchBar {
+  align-content: center;
+  input {
+    display: inline;
+    margin: 0 3rem;
+    width: calc(100% - 6rem);
+    height: 3rem;
+    padding: 1rem;
 
+    border-radius: 25px;
+    border-width: 2px;
+    border-color: map-get($colorPalette, detail);
+    outline: none;
 
-        font-family: 'SF Pro Display', sans-serif;
-        font-weight: 500;
-        font-size: 20px;
-    }
+    font-family: "SF Pro Display", sans-serif;
+    font-weight: 500;
+    font-size: 20px;
+  }
 }
