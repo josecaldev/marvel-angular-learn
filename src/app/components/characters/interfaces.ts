@@ -6,7 +6,3 @@ export interface ICharacter {
   thumbnail: string;
   comics: {};
 }
-
-// export interface IComics{
-
-// }

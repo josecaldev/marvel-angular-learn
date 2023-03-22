@@ -45,7 +45,7 @@ export class CharactersComponent implements OnInit, OnDestroy {
       });
   }
 
-  pageResult(direction = 'start') {
+  pageResult(direction: string) {
     switch (direction) {
       case 'start':
         this.doCharactersRequest(0, this.limit);
@@ -73,10 +73,7 @@ export class CharactersComponent implements OnInit, OnDestroy {
 
   recieveQuery(query: string) {
     this.searchQuery = query;
-    console.log('Recieved: ' + query);
-    if (query) {
-      this.pageResult('start');
-    }
+    this.pageResult('start');
   }
 
   mapCharacter = (results: any) => {

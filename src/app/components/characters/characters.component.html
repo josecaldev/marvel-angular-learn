@@ -1,7 +1,10 @@
 <app-searchBar (queryChanged)="recieveQuery($event)"></app-searchBar>
 <ng-container [ngTemplateOutlet]="paggination"></ng-container>
 <div class="grid">
-  <app-character *ngFor="let char of characters" [chara]="char"></app-character>
+  <app-character
+    *ngFor="let char of characters"
+    [character]="char"
+  ></app-character>
 </div>
 <ng-container [ngTemplateOutlet]="paggination"></ng-container>
 <ng-template #paggination>

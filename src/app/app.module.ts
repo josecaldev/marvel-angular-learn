@@ -12,11 +12,13 @@ import { CharacterInfoComponent } from './components/characterInfo/characterInfo
 import { SearchBarComponent } from './components/searchBar/searchBar.component';
 import { CharacterComponent } from './components/character/character.component';
 import { FormsModule } from '@angular/forms';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'characters', component: CharactersComponent },
-  { path: 'character/:id', component: CharacterInfoComponent }, //TODO Find how to add character id to the path
+  { path: 'characters/:id', component: CharacterInfoComponent },
+  { path: '**', component: PageNotFoundComponent },
 ];
 
 @NgModule({

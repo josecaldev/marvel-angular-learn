@@ -1,6 +1,4 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { CharactersService } from 'src/app/services/characters.service';
-import { ICharacter } from '../characters/interfaces';
 
 @Component({
   selector: 'app-searchBar',
@@ -9,7 +7,6 @@ import { ICharacter } from '../characters/interfaces';
 })
 export class SearchBarComponent {
   private debounceTimer?: NodeJS.Timeout;
-  requestResult;
 
   constructor() {}
 
