@@ -1,3 +1,26 @@
-<h1>Welcome to the {{ title }}</h1>
-<p>This is the character id: {{ id }}</p>
-<p>And the character data: {{ character | json }}</p>
+<div class="character-banner">
+  <div class="character-banner-text">
+    <h1 class="character-name">{{ character.name }}</h1>
+    <p
+      class="character-description"
+      *ngIf="character.description; else NoDescription"
+    >
+      {{ character.description }}
+    </p>
+    <ng-template #NoDescription>
+      <p class="character-description">Such Character, it can't be described</p>
+    </ng-template>
+  </div>
+  <img
+    src="{{ character.thumbnail }}"
+    alt="{{ character.name }}"
+    class="character_image"
+  />
+</div>
+<div class="comics">
+  <h2>{{ character.name }}'s Comics</h2>
+  <div class="character-comics-grid">
+    <marv-comic *ngFor="let comic of character.comics" [comicUri]="comic">
+    </marv-comic>
+  </div>
+</div>

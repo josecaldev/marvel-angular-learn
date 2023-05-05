@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable, map, switchMap } from 'rxjs';
 import { ICharacter } from '../characters/interfaces';
 import { ActivatedRoute } from '@angular/router';
-import { CharactersService } from 'src/app/services/characters.service';
+import { RequestService } from 'src/app/services/request.service';
 
 @Component({
   selector: 'app-characterInfo',
@@ -16,17 +16,16 @@ export class CharacterInfoComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private characterService: CharactersService
+    private requestService: RequestService
   ) {}
 
   ngOnInit() {
     this.id = +this.route.snapshot.paramMap.get('id');
 
-    this.characterService
+    this.requestService
       .requestCharacterById(this.id)
       .subscribe((character: ICharacter) => {
         this.character = character;
-        console.log(character);
       });
   }
 }

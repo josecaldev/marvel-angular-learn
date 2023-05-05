@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ICharacter } from './interfaces';
-import { CharactersService } from 'src/app/services/characters.service';
+import { RequestService } from 'src/app/services/request.service';
 import { map } from 'rxjs';
 
 @Component({
@@ -20,7 +20,7 @@ export class CharactersComponent implements OnInit, OnDestroy {
 
   searchQuery = '';
 
-  constructor(private charactersService: CharactersService) {}
+  constructor(private requestService: RequestService) {}
 
   ngOnInit(): void {
     this.pageResult('start');
@@ -29,7 +29,7 @@ export class CharactersComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {}
 
   doCharactersRequest(offset, limit) {
-    this.charactersService
+    this.requestService
       .requestCharacters(offset, limit, this.searchQuery)
       .pipe(
         map((data: any) => {

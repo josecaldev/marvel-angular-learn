@@ -13,6 +13,7 @@ import { SearchBarComponent } from './components/searchBar/searchBar.component';
 import { CharacterComponent } from './components/character/character.component';
 import { FormsModule } from '@angular/forms';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { ComicComponent } from './components/comic/comic.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -30,6 +31,7 @@ const routes: Routes = [
     CharactersComponent,
     CharacterInfoComponent,
     SearchBarComponent,
+    ComicComponent,
   ],
   imports: [
     BrowserModule,

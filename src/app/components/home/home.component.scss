@@ -2,9 +2,13 @@
   background-color: red;
 }
 
-.e {
-  // display: block;
-  margin: 4rem;
+.element {
+  height: 200px;
+  margin: 1rem 0;
   background-color: aqua;
   border: 10px solid blue;
+}
+
+.element-image {
+  height: 200px;
 }
