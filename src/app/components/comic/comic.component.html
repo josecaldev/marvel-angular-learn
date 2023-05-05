@@ -1,0 +1,12 @@
+<div class="comic">
+  <!-- <p>{{ comicUri | json }}</p> -->
+  <img
+    src="{{ comic.thumbnail }}"
+    alt="{{ comic.title }}"
+    class="comic-image"
+  />
+  <div class="comic-info">
+    <span class="comic-name">{{ comic.title }}</span>
+    <span class="comic-pagecount">{{ comic.pageCount }}</span>
+  </div>
+</div>
