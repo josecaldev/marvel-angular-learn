@@ -2,7 +2,7 @@
 <ng-container [ngTemplateOutlet]="paggination"></ng-container>
 <div class="grid">
   <app-character
-    *ngFor="let char of characters"
+    *ngFor="let char of characters$ | async"
     [character]="char"
   ></app-character>
 </div>

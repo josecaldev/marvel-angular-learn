@@ -1,3 +1,6 @@
+import { Character } from './character';
+import { EntityState } from '@ngrx/entity';
+
 export interface ICharacter {
   id: string;
   name: string;

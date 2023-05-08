@@ -1,7 +1,15 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ICharacter } from './interfaces';
+import { ICharacter } from '../../model/interfaces';
 import { RequestService } from 'src/app/services/request.service';
-import { map } from 'rxjs';
+import { map, Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { loadAllCharacters } from 'src/app/state/character.action';
+import { globalState } from 'src/app/state/reducers';
+import {
+  selectAllCharacters,
+  selectPagginationData,
+} from 'src/app/state/character.selectors';
+import { Character } from 'src/app/model/character';
 
 @Component({
   selector: 'app-characters',
@@ -9,7 +17,7 @@ import { map } from 'rxjs';
   styleUrls: ['./characters.component.scss'],
 })
 export class CharactersComponent implements OnInit, OnDestroy {
-  characters: ICharacter[] = [];
+  characters$: Observable<Character[]>;
 
   offset: number;
   count: number;
@@ -20,29 +28,42 @@ export class CharactersComponent implements OnInit, OnDestroy {
 
   searchQuery = '';
 
-  constructor(private requestService: RequestService) {}
+  constructor(
+    private requestService: RequestService,
+    private store: Store<globalState>
+  ) {}
 
   ngOnInit(): void {
     this.pageResult('start');
+    this.characters$ = this.store.select(selectAllCharacters);
+
+    this.store.select(selectPagginationData).subscribe((state) => {
+      this.offset = state.offset;
+      this.count = state.count;
+      this.dataSize = state.dataSize;
+    });
   }
 
   ngOnDestroy(): void {}
 
   doCharactersRequest(offset, limit) {
-    this.requestService
-      .requestCharacters(offset, limit, this.searchQuery)
-      .pipe(
-        map((data: any) => {
-          this.count = data.count;
-          this.offset = data.offset;
-          this.dataSize = data.total;
+    this.store.dispatch(
+      loadAllCharacters({ offset, limit, query: this.searchQuery })
+    );
+    // this.requestService
+    //   .requestCharacters(offset, limit, this.searchQuery)
+    //   .pipe(
+    //     map((data: any) => {
+    //       this.count = data.count;
+    //       this.offset = data.offset;
+    //       this.dataSize = data.total;
 
-          return this.mapCharacter(data.results);
-        })
-      )
-      .subscribe((characters: ICharacter[]) => {
-        this.characters = characters;
-      });
+    //       return this.mapCharacter(data.results);
+    //     })
+    //   )
+    //   .subscribe((characters: ICharacter[]) => {
+    //     this.characters = characters;
+    //   });
   }
 
   pageResult(direction: string) {

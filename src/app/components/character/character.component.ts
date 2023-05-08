@@ -1,13 +1,14 @@
 import { Component, Input } from '@angular/core';
-import { ICharacter } from '../characters/interfaces';
+import { ICharacter } from '../../model/interfaces';
 import { Router } from '@angular/router';
+import { Character } from 'src/app/model/character';
 @Component({
   selector: 'app-character',
   templateUrl: './character.component.html',
   styleUrls: ['./character.component.scss'],
 })
 export class CharacterComponent {
-  @Input() character: ICharacter;
+  @Input() character: Character;
 
   constructor(private router: Router) {}
 

@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { RequestService } from 'src/app/services/request.service';
-import { IComic, IComicUri } from '../characters/interfaces';
+import { IComic, IComicUri } from '../../model/interfaces';
 
 @Component({
   selector: 'marv-comic',

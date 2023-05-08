@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable, map, switchMap } from 'rxjs';
-import { ICharacter } from '../characters/interfaces';
+import { ICharacter } from '../../model/interfaces';
 import { ActivatedRoute } from '@angular/router';
 import { RequestService } from 'src/app/services/request.service';
 
