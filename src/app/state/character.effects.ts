@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { RequestService } from '../services/request.service';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { CharacterActions } from './action-types';
-import { catchError, map, mergeMap, of, tap } from 'rxjs';
+import { catchError, map, mergeMap, of } from 'rxjs';
 
 @Injectable()
 export class CharactersEffects {

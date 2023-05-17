@@ -11,7 +11,7 @@ export const loadAllCharacters = createAction(
 );
 
 export const allCharactersLoaded = createAction(
-  '[Characters] Load Characters Succesfully', //TODO Change name
+  '[Characters] Load Characters Succesfully',
   props<{
     offset: number;
     count: number;
@@ -22,4 +22,11 @@ export const allCharactersLoaded = createAction(
 
 export const loadAllCharactersFail = createAction(
   '[Characters] Load Characters Failed'
+);
+
+export const loadCharacter = createAction(
+  '[CharacterDetail] Load Character detail',
+  props<{
+    id: number;
+  }>()
 );

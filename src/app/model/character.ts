@@ -6,3 +6,7 @@ export interface Character {
   thumbnail: string;
   comicsCount: number;
 }
+
+export interface CustomCharacter extends Character {
+  favorite: boolean;
+}

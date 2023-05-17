@@ -1,6 +1,6 @@
 import { NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { RouterModule, Routes } from '@angular/router';
@@ -21,6 +21,10 @@ import { EffectsModule } from '@ngrx/effects';
 import { CharactersEffects } from './state/character.effects';
 
 import * as fromCharacters from './state/reducers/index';
+import { SpinnerModule } from './spinner/spinner.module';
+import { CustomCharactersComponent } from './components/custom/custom-characters/custom-characters.component';
+import { CustomCreateComponent } from './components/custom/custom-create/custom-create.component';
+// import { SpinnerInterceptor } from './spinner/spinner.interceptor';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -29,6 +33,8 @@ const routes: Routes = [
     component: CharactersComponent,
   },
   { path: 'characters/:id', component: CharacterInfoComponent },
+  { path: 'custom', component: CustomCharactersComponent },
+  { path: 'custom/create', component: CustomCreateComponent },
   { path: '**', component: PageNotFoundComponent },
 ];
 
@@ -40,6 +46,7 @@ const marvEntityMetadata: EntityMetadataMap = {
 @NgModule({
   declarations: [
     AppComponent,
+    HomeComponent,
     HeaderComponent,
     FooterComponent,
     CharacterComponent,
@@ -47,6 +54,8 @@ const marvEntityMetadata: EntityMetadataMap = {
     CharacterInfoComponent,
     SearchBarComponent,
     ComicComponent,
+    CustomCharactersComponent,
+    CustomCreateComponent,
   ],
   imports: [
     BrowserModule,
@@ -56,8 +65,15 @@ const marvEntityMetadata: EntityMetadataMap = {
     StoreModule.forRoot({ state: fromCharacters.reducer }),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
     EffectsModule.forRoot([CharactersEffects]),
+    SpinnerModule,
   ],
-  providers: [],
+  providers: [
+    // {
+    //   provide: HTTP_INTERCEPTORS,
+    //   useClass: SpinnerInterceptor,
+    //   multi: true,
+    // },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

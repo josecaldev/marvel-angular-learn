@@ -14,12 +14,10 @@ export class ComicComponent implements OnInit {
   constructor(private requestService: RequestService) {}
 
   ngOnInit() {
-    // console.log('comicUri: ', this.comicUri);
     this.requestService
       .requestComicByUri(this.comicUri.resourceURI)
       .subscribe((comic: IComic) => {
         this.comic = comic;
-        console.log(comic);
       });
   }
 }

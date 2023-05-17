@@ -1,3 +1,3 @@
-import * as CharacterActions from './character.action';
+import * as CharacterActions from './character.actions';
 
 export { CharacterActions };

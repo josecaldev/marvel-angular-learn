@@ -14,8 +14,6 @@ interface Ilink {
 export class HeaderComponent {
   items: Ilink[] = [
     { text: 'Characters', link: '/characters' },
-    { text: 'Comics', link: '/comics' },
-    { text: 'Movies', link: '/movies' },
-    { text: 'Series', link: '/series' },
+    { text: 'Custom', link: '/custom' },
   ];
 }

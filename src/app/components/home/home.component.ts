@@ -6,27 +6,26 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  ngOnInit(): void {
-    console.log(this.features, this.numeros);
-  }
+  ngOnInit() {}
 
   features = [
     {
       name: 'List Characters',
-      description: 'Access all Marvel library of characters',
+      description:
+        'Access all Marvel library of characters from the API, listing all detail of heroes',
       imageUrl:
-        'https://project-nerd.com/wp-content/uploads/2013/09/Marvel-Comics-Character-Banner.jpg',
-      navigateUrl: '',
+        'https://i0.wp.com/videojuegos.enriqueortegaburgos.com/wp-content/uploads/2023/01/MARVEL-ESTRATEGIA.jpg',
+      navigateUrl: '/characters',
+      callToAction: 'Go to List',
     },
     {
-      name: 'Create new Character',
-      description: 'Decide which new Character you want to add to the library',
+      name: 'Custom Characters',
+      description:
+        'Create new Custom Characters to be added to the library. You can decide every aspect of it',
       imageUrl:
-        'https://images.squarespace-cdn.com/content/v1/54bdcba5e4b08f92b173441f/1542485005084-NWVVT3QZK9OVTKGCZLZ4/stan-lee-and-supes-7x4-1.jpg',
-      navigateUrl: '',
+        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSII9r770UCuLZ1ul4N_GeOZJJvxo9Wjlz3Dw&usqp=CAU',
+      navigateUrl: '/custom/create',
+      callToAction: 'Create Custom Character',
     },
-    {},
   ];
-
-  numeros = [1, 2, 3, 4, 5];
 }

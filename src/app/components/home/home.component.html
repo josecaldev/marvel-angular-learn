@@ -1,6 +1,16 @@
 <div class="container">
-  <!-- <div class="element" *ngFor="let numero of numeros">
-    <h1>{{ numero }}</h1>
-  </div> -->
-  <p>hola</p>
+  <div class="element" *ngFor="let feature of features">
+    <img
+      src="{{ feature.imageUrl }}"
+      alt="{{ feature.name }}"
+      class="feature_image"
+    />
+    <div class="feature_content">
+      <h1>{{ feature.name }}</h1>
+      <span>{{ feature.description }}</span>
+      <button [routerLink]="feature.navigateUrl">
+        {{ feature.callToAction }}
+      </button>
+    </div>
+  </div>
 </div>

@@ -3,8 +3,8 @@ import { ICharacter } from '../../model/interfaces';
 import { RequestService } from 'src/app/services/request.service';
 import { map, Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { loadAllCharacters } from 'src/app/state/character.action';
-import { globalState } from 'src/app/state/reducers';
+import { loadAllCharacters } from 'src/app/state/character.actions';
+import { GlobalState } from 'src/app/state/reducers';
 import {
   selectAllCharacters,
   selectPagginationData,
@@ -30,7 +30,7 @@ export class CharactersComponent implements OnInit, OnDestroy {
 
   constructor(
     private requestService: RequestService,
-    private store: Store<globalState>
+    private store: Store<GlobalState>
   ) {}
 
   ngOnInit(): void {
@@ -50,20 +50,6 @@ export class CharactersComponent implements OnInit, OnDestroy {
     this.store.dispatch(
       loadAllCharacters({ offset, limit, query: this.searchQuery })
     );
-    // this.requestService
-    //   .requestCharacters(offset, limit, this.searchQuery)
-    //   .pipe(
-    //     map((data: any) => {
-    //       this.count = data.count;
-    //       this.offset = data.offset;
-    //       this.dataSize = data.total;
-
-    //       return this.mapCharacter(data.results);
-    //     })
-    //   )
-    //   .subscribe((characters: ICharacter[]) => {
-    //     this.characters = characters;
-    //   });
   }
 
   pageResult(direction: string) {
@@ -96,13 +82,6 @@ export class CharactersComponent implements OnInit, OnDestroy {
     this.searchQuery = query;
     this.pageResult('start');
   }
-
-  mapCharacter = (results: any) => {
-    return results.map((char: any) => ({
-      ...char,
-      thumbnail: `${char.thumbnail.path}.${char.thumbnail.extension}`,
-    }));
-  };
 
   getOffset() {
     return this.page * this.limit;
